@@ -4,14 +4,14 @@ import{Text} from 'react-native';
 
 import{NavigationContainer} from '@react-navigation/native';
 
-import Navigation from './navigation'
+import Routes from '../../routes'
 
-const App= () => {
+const Login= () => {
   return (
     <NavigationContainer>
-        <Navigation/>
+        <Routes/>
     </NavigationContainer>
   );
 };
 
-export default App;
+export default Login;
