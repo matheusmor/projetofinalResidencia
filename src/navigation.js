@@ -4,21 +4,24 @@ import React from 'react';
 import { Text } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './screens/home';
-import Login from './screens/login'
+import Delete from './screens/delete'
+import AddProducts from './screens/Addproducts';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}} inicialRouteName="Home" >
+    <Tab.Navigator screenOptions={{headerShown: false}} inicialRouteName="Home" >
 
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Home" component={Home} />
+      <Tab.Screen name="Delete" component={Delete} />
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="AddProducts" component={AddProducts} />
 
 
-    </Stack.Navigator>
+    </Tab.Navigator>
 
   );
 };
