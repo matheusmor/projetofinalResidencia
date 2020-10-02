@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 
-import App from './src'
+import Login from './src/screens/Login';
+
 const Main= () => {
   return (
     <>
-      <App/>
+      <Login/>
     </>
   );
 };
