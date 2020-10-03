@@ -1,12 +1,15 @@
-import 'react-native-gesture-handler';
-import React from 'react';
+import "react-native-gesture-handler";
+import React from "react";
 
-import Login from './src/screens/Login';
+import Login from "./src/screens/Login";
 
-const Main= () => {
+import { StatusBar } from "react-native";
+
+const Main = () => {
   return (
     <>
-      <Login/>
+      <StatusBar hidden={true} />
+      <Login />
     </>
   );
 };
