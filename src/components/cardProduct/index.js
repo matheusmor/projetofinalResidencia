@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Container,
@@ -8,21 +8,28 @@ import {
   Name,
   Price,
   Description,
-} from "./style";
+} from './style';
 
-const CardProduct = () => {
+import notFound from '../../../assets/images/image-not-found.jpg'
+
+function CardProduct ({fotoLink,nome,valor,descricao})  {
+
+  const addDefaultImg = (e) => {
+    e.target.src = notFound;
+  }
+
   return (
     <Container>
-      <ContainerImg></ContainerImg>
+      <ContainerImg source={{uri: fotoLink}} ></ContainerImg>
       <ContainerCont>
         <ContainerInf>
-          <Name>Name</Name>
+          <Name>{nome}</Name>
         </ContainerInf>
         <ContainerInf>
-          <Price>Price</Price>
+          <Price>R$ {valor}</Price>
         </ContainerInf>
         <ContainerInf>
-          <Description>Description</Description>
+          <Description>{descricao}</Description>
         </ContainerInf>
       </ContainerCont>
     </Container>
