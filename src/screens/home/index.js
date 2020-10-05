@@ -30,12 +30,6 @@ const Home = () => {
     handleListProduct();
   }, []);
 
- /* return(
-    <>
-    <Text>{console.log(productsLists)}</Text>
-    </>
-  )*/
-
   return (
     <>
       <Header />
