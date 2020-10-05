@@ -1,16 +1,9 @@
-import React from 'react';
-import {Text} from 'react-native';
+import React from "react";
+import { Text } from "react-native";
+import AddProductCard from "../../components/addProductCard";
 
-
-
-const AddProducts=()=>{
-    return (
-    
-   
-    <Text>Produtos</Text>
-    
-
-    );
-}
+const AddProducts = () => {
+  return <AddProductCard />;
+};
 
 export default AddProducts;
