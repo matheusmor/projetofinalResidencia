@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Container,
@@ -12,25 +12,26 @@ import {
 
 import notFound from '../../../assets/images/image-not-found.jpg'
 
-function CardProduct ({fotoLink,nome,valor,descricao})  {
+function CardProduct({ fotoLink, nome, valor, descricao }) {
 
-  const addDefaultImg = (e) => {
-    e.target.src = notFound;
+  const [foto, setFoto] = useState({ uri: fotoLink });
+
+  const addDefaultImg = () => {
+    setFoto(notFound);
   }
 
   return (
     <Container>
-      <ContainerImg source={{uri: fotoLink}} ></ContainerImg>
+      <ContainerImg source={foto} onError={addDefaultImg} ></ContainerImg>
       <ContainerCont>
-        <ContainerInf>
-          <Name>{nome}</Name>
-        </ContainerInf>
-        <ContainerInf>
-          <Price>R$ {valor}</Price>
-        </ContainerInf>
-        <ContainerInf>
-          <Description>{descricao}</Description>
-        </ContainerInf>
+
+        <Name>{nome}</Name>
+
+
+        <Price>R$ {valor}</Price>
+
+        <Description>{descricao}</Description>
+
       </ContainerCont>
     </Container>
   );

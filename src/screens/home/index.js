@@ -40,10 +40,10 @@ const Home = () => {
     <>
       <Header />
       <Container>
-        <FlatList data={productsLists} keyExtractor={item => `${item?.id}`}
+        <FlatList data={productsLists} keyExtractor={item => `${item.id}`}
           renderItem={({ item }) => (
-            <CardProduct fotoLink={item?.fotoLink} nome={item?.nome} 
-               valor={item?.valor} descricao={item?.descricao} />
+            <CardProduct fotoLink={item.fotoLink} nome={item.nome} 
+               valor={item.valor} descricao={item.descricao} />
           )} />
       </Container>
     </>
