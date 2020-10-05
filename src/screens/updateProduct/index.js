@@ -4,23 +4,27 @@ import { Text } from 'react-native';
 import api from '../../services/api'
 
 
-const AddProducts = () => {
+const Home = () => {
 
+    const [produto, setProduto] = useState();
     const [categorias, setCategorias] = useState([]);
 
-    const [produto, setProduto] = useState({
-        dataFabricacao: '2019-10-01T00:00:00Z',
-        descricao: '',
-        fotoLink: null,
-        id: 0,
-        idCategoria: 0,
-        idFuncionario: 1,
-        nome: '',
-        nomeCategoria: '',
-        nomeFuncionario: null,
-        qtdEstoque: null,
-        valor: null
-    });
+    useEffect(() => {
+        const handleProduct = async (id) => {
+
+
+            try {
+                const response = await api.get(`/produto/${id}`);
+                const prod = response.data;
+
+                setProduto(prod);
+
+            } catch (error) {
+                alert('Erro no acesso a API');
+            }
+        };
+        handleProduct();
+    }, [id]);
 
     useEffect(() => {
         const handleListCategorias = async () => {
@@ -43,10 +47,10 @@ const AddProducts = () => {
 
     }, []);
 
-    const handleAddProduct = async () => {
+    const handleUpdateProduct = async (id) => {
 
         try {
-            await api.post('/produto', produto);
+            await api.put(`/produto/${id}`, produto);
 
         } catch (error) {
             alert('Erro no acesso a API');
@@ -54,9 +58,9 @@ const AddProducts = () => {
 
     }
 
-    const handleSubmit = e => {
+    const handleClick = (e) => {
         e.preventDefault();
-        handleAddProduct();
+        handleUpdateProduct();
     }
 
     const findCategoria = (id) => {
@@ -64,13 +68,8 @@ const AddProducts = () => {
         return result.nome;
     }
 
-    return (
+    return <Text>login</Text>;
 
-
-        <Text>Produtos</Text>
-
-
-    );
 }
 
-export default AddProducts;
+export default Home;
