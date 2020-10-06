@@ -1,9 +1,11 @@
 import React from "react";
 
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+
+
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from "./screens/home";
 import Update from "./screens/updateProduct";

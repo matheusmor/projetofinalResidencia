@@ -5,9 +5,10 @@ import{NavigationContainer} from '@react-navigation/native';
 
 import Routes from './src/routes'
 
-import { StatusBar } from "react-native";
+import { StatusBar} from "react-native";
 
 const Main = () => {
+
   return (
     <>
       <StatusBar hidden={true} />
