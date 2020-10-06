@@ -3,8 +3,22 @@ import { Text } from 'react-native';
 
 import api from '../../services/api'
 import UpdateProductCard from '../../components/updateProductCard'
+import notFound from "../../../assets/images/image-not-found.jpg";
 
-const Update = ({ route, navigation }) => {
+import {
+    ContainerTop,
+    ContainerBot,
+    ContainerImg,
+    ContainerStock,
+    ContainerInf,
+    ContainerName,
+    ContainerPrice,
+    ContainerDesc,
+    ContainerCategory,
+    Input,
+} from "./style";
+
+const Update = ({ route }) => {
 
     const [produto, setProduto] = useState();
     const [categorias, setCategorias] = useState([]);
@@ -20,12 +34,13 @@ const Update = ({ route, navigation }) => {
                 const prod = response.data;
 
                 setProduto(prod);
-                console.log(produto)
+
             } catch (error) {
                 alert('Erro no acesso a API');
             }
         };
         handleProduct();
+        console.log(produto)
     }, []);
 
     useEffect(() => {
@@ -60,6 +75,10 @@ const Update = ({ route, navigation }) => {
 
     }
 
+    const addDefaultImg = () => {
+        setProduto({ ...produto, fotoLink: { uri: notFound } });
+    };
+
     const handleClick = (e) => {
         e.preventDefault();
         handleUpdateProduct();
@@ -69,11 +88,31 @@ const Update = ({ route, navigation }) => {
         const result = categorias.find(cat => cat.id === parseInt(id));
         return result.nome;
     }
-    
+
     return (
         <>
-            <Text>{id}</Text>
-            <UpdateProductCard produto={JSON.stringify(produto)}/>
+            <ContainerTop>
+                <ContainerImg source={{ uri: produto?.fotoLink }} onError={addDefaultImg}></ContainerImg>
+                <ContainerInf>
+                    <ContainerName>
+                        <Input placeholder={produto?.nome} value={produto?.nome} onChange={e => setProduto({ ...produto, nome: e.target.value })} />
+                    </ContainerName>
+                    <ContainerPrice>
+                        <Input placeholder={produto?.valor.toString()} />
+                    </ContainerPrice>
+                    <ContainerDesc>
+                        <Input placeholder="Description" />
+                    </ContainerDesc>
+                </ContainerInf>
+            </ContainerTop>
+            <ContainerBot>
+                <ContainerStock>
+                    <Input placeholder="Stock" />
+                </ContainerStock>
+                <ContainerCategory>
+                    <Input placeholder="Category" />
+                </ContainerCategory>
+            </ContainerBot>
         </>
     )
 

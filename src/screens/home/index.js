@@ -38,7 +38,7 @@ const Home = ({navigation}) => {
       <Container>
         <FlatList data={productsLists} keyExtractor={item => `${item.id}`}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate('Update', {id: item.id})} >
+            <TouchableOpacity onPress={() => navigation.navigate('Update', {id: item.id, prod: item})} >
               <CardProduct fotoLink={item.fotoLink} nome={item.nome}
                 valor={item.valor} descricao={item.descricao} />
             </TouchableOpacity>
