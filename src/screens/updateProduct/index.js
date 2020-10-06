@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from 'react-native';
 
 import api from '../../services/api'
-import UpdateProductCard from '../../components/updateProductCard'
+
 import notFound from "../../../assets/images/image-not-found.jpg";
 
 import {
@@ -21,7 +20,7 @@ import {
 const Update = ({ route }) => {
 
     const [produto, setProduto] = useState();
-    const [categorias, setCategorias] = useState([]);
+    const [foto, setFoto] = useState();
 
     const id = route.params?.id ?? 1;
 
@@ -34,37 +33,16 @@ const Update = ({ route }) => {
                 const prod = response.data;
 
                 setProduto(prod);
+                setFoto({uri: prod.fotoLink});
 
             } catch (error) {
                 alert('Erro no acesso a API');
             }
         };
         handleProduct();
-        console.log(produto)
     }, []);
 
-    useEffect(() => {
-        const handleListCategorias = async () => {
-
-
-            try {
-                const response = await api.get('/categoria');
-                const list = response.data;
-                const namesList = [];
-                list.forEach(item => {
-                    namesList.push(item)
-                });
-                setCategorias(namesList);
-
-            } catch (error) {
-                alert('Erro no acesso a API');
-            }
-        };
-        handleListCategorias();
-
-    }, []);
-
-    const handleUpdateProduct = async (id) => {
+    const handleUpdateProduct = async () => {
 
         try {
             await api.put(`/produto/${id}`, produto);
@@ -76,41 +54,42 @@ const Update = ({ route }) => {
     }
 
     const addDefaultImg = () => {
-        setProduto({ ...produto, fotoLink: { uri: notFound } });
+        setFoto(notFound);
     };
 
     const handleClick = (e) => {
-        e.preventDefault();
         handleUpdateProduct();
-    }
-
-    const findCategoria = (id) => {
-        const result = categorias.find(cat => cat.id === parseInt(id));
-        return result.nome;
     }
 
     return (
         <>
             <ContainerTop>
-                <ContainerImg source={{ uri: produto?.fotoLink }} onError={addDefaultImg}></ContainerImg>
+                <ContainerImg source={foto} onError={addDefaultImg}></ContainerImg>
                 <ContainerInf>
                     <ContainerName>
-                        <Input placeholder={produto?.nome} value={produto?.nome} onChange={e => setProduto({ ...produto, nome: e.target.value })} />
+                        <Input placeholder="Nome" value={produto?.nome} 
+                         onChangeText={text => setProduto({ ...produto, nome: text })} />
                     </ContainerName>
                     <ContainerPrice>
-                        <Input placeholder={produto?.valor.toString()} />
+                        <Input placeholder="Valor" defaultValue={produto?.valor.toString()} 
+                            keyboardType='numeric'
+                            maxLength={10}
+                            onChangeText={text => setProduto({ ...produto, valor: parseFloat(text) })}/>
                     </ContainerPrice>
                     <ContainerDesc>
-                        <Input placeholder="Description" />
+                        <Input placeholder="Descrição" value={produto?.descricao}
+                        onChangeText={text => setProduto({ ...produto, descricao: text })} />
                     </ContainerDesc>
                 </ContainerInf>
             </ContainerTop>
             <ContainerBot>
                 <ContainerStock>
-                    <Input placeholder="Stock" />
+                    <Input placeholder="Estoque" defaultValue={produto?.qtdEstoque.toString()}
+                    keyboardType='numeric'
+                    onChangeText={text => setProduto({ ...produto, qtdEstoque: parseInt(text) })} />
                 </ContainerStock>
                 <ContainerCategory>
-                    <Input placeholder="Category" />
+                    <Input placeholder="Categoria" />
                 </ContainerCategory>
             </ContainerBot>
         </>
