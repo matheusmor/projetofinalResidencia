@@ -6,10 +6,21 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 import Home from "./screens/home";
-import Delete from "./screens/delete";
+import Update from "./screens/updateProduct";
 import AddProducts from "./screens/Addproducts";
+import Login from "./screens/Login"
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const StackNav = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
+      <Stack.Screen name="Update" component={Update} />
+    </Stack.Navigator>
+  );
+};
 
 const Navigation = () => {
   return (
@@ -33,8 +44,8 @@ const Navigation = () => {
       }}
     >
       <Tab.Screen
-        name="Delete"
-        component={Delete}
+        name="Login"
+        component={Login}
         options={{
           tabBarIcon: ({ color }) => {
             return <AntDesign name="user" size={40} color={color} />;
@@ -43,7 +54,7 @@ const Navigation = () => {
       />
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={StackNav}
         options={{
           tabBarIcon: ({ color }) => {
             return <AntDesign name="home" size={40} color={color} />;

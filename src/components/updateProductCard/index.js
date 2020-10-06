@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import {Text} from 'react-native'
+
+import notFound from "../../../assets/images/image-not-found.jpg";
 
 import {
   ContainerTop,
@@ -13,14 +16,26 @@ import {
   Input,
 } from "./style";
 
-const AddProductCard = () => {
+const UpdateProductCard = (prod) => {
+
+  const [produto, setProduto] = useState();
+
+  useEffect(() => {
+    setProduto(prod);
+  }, [prod]);
+
+  const addDefaultImg = () => {
+    setProduto({...produto,fotoLink: notFound});
+  };
+  
   return (
     <>
       <ContainerTop>
-        <ContainerImg></ContainerImg>
+        <ContainerImg source={{uri: produto?.fotoLink}} onError={addDefaultImg}></ContainerImg>
         <ContainerInf>
           <ContainerName>
-            <Input placeholder="Name" />
+            <Text>{produto?.nome}</Text>
+            <Input placeholder={produto?.nome} value={produto?.nome} onChange={e => setProduto({...produto,nome:e.target.value})}/>
           </ContainerName>
           <ContainerPrice>
             <Input placeholder="Price" />
@@ -42,4 +57,4 @@ const AddProductCard = () => {
   );
 };
 
-export default AddProductCard;
+export default UpdateProductCard;
