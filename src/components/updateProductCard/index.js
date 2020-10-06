@@ -16,22 +16,22 @@ import {
   Input,
 } from "./style";
 
-const UpdateProductCard = (prod) => {
+const UpdateProductCard = (produto) => {
 
-  const [produto, setProduto] = useState();
+  //const [produto, setProduto] = useState(prod);
 
-  useEffect(() => {
+  /*useEffect(() => {
     setProduto(prod);
-  }, [prod]);
-
-  const addDefaultImg = () => {
+  }, [prod]);*/
+  //console.log(produto)
+  /*const addDefaultImg = () => {
     setProduto({...produto,fotoLink: notFound});
-  };
-  
+  };*/
+    
   return (
     <>
       <ContainerTop>
-        <ContainerImg source={{uri: produto?.fotoLink}} onError={addDefaultImg}></ContainerImg>
+        <ContainerImg source={{uri: produto?.fotoLink}} ></ContainerImg>
         <ContainerInf>
           <ContainerName>
             <Text>{produto?.nome}</Text>
