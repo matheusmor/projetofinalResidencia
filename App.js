@@ -3,9 +3,10 @@ import React from "react";
 
 import Login from "./src/screens/Login";
 
-import { StatusBar } from "react-native";
+import { StatusBar} from "react-native";
 
 const Main = () => {
+
   return (
     <>
       <StatusBar hidden={true} />
