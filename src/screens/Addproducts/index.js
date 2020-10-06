@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Text } from 'react-native';
 
-import api from '../../services/api'
+import AddProductCard from '../../components/addProductCard'
 
+import api from '../../services/api'
 
 const AddProducts = () => {
 
@@ -65,11 +66,10 @@ const AddProducts = () => {
     }
 
     return (
-
-
-        <Text>Produtos</Text>
-
-
+        <>
+            <Text>Produtos, melhor que AliExpress</Text>
+            <AddProductCard />
+        </>
     );
 }
 
