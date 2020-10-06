@@ -1,13 +1,14 @@
-import { forModalPresentationIOS } from "@react-navigation/stack/lib/typescript/src/TransitionConfigs/CardStyleInterpolators";
 import React from "react";
-
+import {Text} from 'react-native';
 import { Container, Button } from "./style";
 
 const SubmitButton = () => {
   return (
     <>
       <Container>
-        <Button>Submit</Button>
+        <Button>
+          <Text style={{fontSize: 20, color: 'white'}}>Submit</Text>
+        </Button>
       </Container>
     </>
   );
