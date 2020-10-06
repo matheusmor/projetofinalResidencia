@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, Text } from "react-native";
+import { FlatList } from "react-native";
 import api from '../../services/api';
 
 import Header from "../../components/header";
 import CardProduct from "../../components/cardProduct";
+
 import { Container } from "./style";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 
 
-const Home = () => {
+const Home = ({navigation}) => {
 
   const [productsLists, setProductsLists] = useState([]);
 
@@ -20,7 +22,7 @@ const Home = () => {
       try {
         const response = await api.get('/produto');
         const list = response.data;
-        
+
         setProductsLists(list);
 
       } catch (error) {
@@ -36,8 +38,10 @@ const Home = () => {
       <Container>
         <FlatList data={productsLists} keyExtractor={item => `${item.id}`}
           renderItem={({ item }) => (
-            <CardProduct fotoLink={item.fotoLink} nome={item.nome} 
-               valor={item.valor} descricao={item.descricao} />
+            <TouchableOpacity onPress={() => navigation.navigate('Update', {id: item.id, prod: item})} >
+              <CardProduct fotoLink={item.fotoLink} nome={item.nome}
+                valor={item.valor} descricao={item.descricao} />
+            </TouchableOpacity>
           )} />
       </Container>
     </>
