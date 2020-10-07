@@ -30,7 +30,7 @@ const Home = ({navigation}) => {
       }
     };
     handleListProduct();
-  }, []);
+  }, [navigation]);
 
   return (
     <>

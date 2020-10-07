@@ -1,26 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import ProdContext from '../../context'
 
 import AddProductCard from '../../components/addProductCard'
+import SubmitButton from '../../components/submitButton'
+
+import notFound from "../../../assets/images/image-not-found.jpg";
 
 import api from '../../services/api'
 
 const AddProducts = () => {
 
     const [categorias, setCategorias] = useState([]);
+    const [foto, setFoto] = useState();
 
     const [produto, setProduto] = useState({
         dataFabricacao: '2019-10-01T00:00:00Z',
         descricao: '',
-        fotoLink: null,
+        fotoLink: notFound,
         id: 0,
         idCategoria: 0,
         idFuncionario: 1,
-        nome: '',
+        nome: 'abc',
         nomeCategoria: '',
         nomeFuncionario: null,
-        qtdEstoque: null,
-        valor: null
+        qtdEstoque: 0,
+        valor: 0
     });
 
     useEffect(() => {
@@ -55,20 +61,15 @@ const AddProducts = () => {
 
     }
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        handleAddProduct();
-    }
-
-    const findCategoria = (id) => {
-        const result = categorias.find(cat => cat.id === parseInt(id));
-        return result.nome;
-    }
-
     return (
         <>
-            <Text>Produtos, melhor que AliExpress</Text>
-            <AddProductCard />
+            <Text>Adicionar Produtos</Text>
+            <ProdContext.Provider value={{produto,setProduto,categorias}}>
+                <AddProductCard />
+            </ProdContext.Provider>
+            <TouchableOpacity onPress={handleAddProduct} >
+                <SubmitButton />
+            </TouchableOpacity>
         </>
     );
 }
