@@ -6,24 +6,25 @@ import notFound from "../../../assets/images/image-not-found.jpg";
 import SubmitButton from "../../components/submitButton";
 
 import {
-    ContainerTop,
-    ContainerBot,
-    ContainerImg,
-    ContainerStock,
-    ContainerInf,
-    ContainerName,
-    ContainerPrice,
-    ContainerDesc,
-    ContainerCategory,
-    Input,
+  ContainerTop,
+  ContainerBot,
+  ContainerImg,
+  ContainerStock,
+  ContainerInf,
+  ContainerName,
+  ContainerPrice,
+  ContainerDesc,
+  ContainerCategory,
+  Input,
 } from "./style";
 
 const Update = ({ route }) => {
-
+ 
     const [produto, setProduto] = useState();
     const [foto, setFoto] = useState();
 
     const id = route.params?.id ?? 1;
+
 
     useEffect(() => {
         const handleProduct = async () => {
