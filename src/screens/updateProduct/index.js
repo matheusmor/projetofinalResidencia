@@ -19,96 +19,85 @@ import {
   InputDesc,
   InputCat,
 } from "./style";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Update = ({ route }) => {
-  const [produto, setProduto] = useState();
-  const [foto, setFoto] = useState();
 
-  const id = route.params?.id ?? 1;
+    const [produto, setProduto] = useState();
+    const [foto, setFoto] = useState();
 
-  useEffect(() => {
-    const handleProduct = async () => {
-      try {
-        const response = await api.get(`/produto/${id}`);
-        const prod = response.data;
+    const id = route.params?.id ?? 1;
 
-        setProduto(prod);
-        setFoto({ uri: prod.fotoLink });
-      } catch (error) {
-        alert("Erro no acesso a API");
-      }
-    };
-    handleProduct();
-  }, []);
+    useEffect(() => {
+        const handleProduct = async () => {
 
-  const handleUpdateProduct = async () => {
-    try {
-      await api.put(`/produto/${id}`, produto);
-    } catch (error) {
-      alert("Erro no acesso a API");
-    }
-  };
 
-  const addDefaultImg = () => {
-    setFoto(notFound);
-  };
+            try {
+                const response = await api.get(`/produto/${id}`);
+                const prod = response.data;
 
-  const handleClick = (e) => {
-    handleUpdateProduct();
-  };
+                setProduto(prod);
+                setFoto({ uri: prod.fotoLink });
 
-  return (
-    <>
-      <ContainerTop>
-        <ContainerImg source={foto} onError={addDefaultImg}></ContainerImg>
-        <ContainerInf>
-          <ContainerName>
-            <Input
-              placeholder="Nome"
-              value={produto?.nome}
-              onChangeText={(text) => setProduto({ ...produto, nome: text })}
-            />
-          </ContainerName>
-          <ContainerPrice>
-            <Input
-              placeholder="Valor"
-              defaultValue={produto?.valor.toString()}
-              keyboardType="numeric"
-              maxLength={10}
-              onChangeText={(text) =>
-                setProduto({ ...produto, valor: parseFloat(text) })
-              }
-            />
-          </ContainerPrice>
-          <ContainerDesc>
-            <InputDesc
-              placeholder="Descrição"
-              value={produto?.descricao}
-              onChangeText={(text) =>
-                setProduto({ ...produto, descricao: text })
-              }
-            />
-          </ContainerDesc>
-        </ContainerInf>
-      </ContainerTop>
-      <ContainerBot>
-        <ContainerStock>
-          <Input
-            placeholder="Estoque"
-            defaultValue={produto?.qtdEstoque.toString()}
-            keyboardType="numeric"
-            onChangeText={(text) =>
-              setProduto({ ...produto, qtdEstoque: parseInt(text) })
+            } catch (error) {
+                alert('Erro no acesso a API');
             }
-          />
-        </ContainerStock>
-        <ContainerCategory>
-          <InputCat placeholder="Categoria" />
-        </ContainerCategory>
-      </ContainerBot>
-      <SubmitButton />
-    </>
-  );
-};
+        };
+        handleProduct();
+    }, []);
+
+    const handleUpdateProduct = async () => {
+
+        try {
+            await api.put(`/produto/${id}`, produto);
+
+        } catch (error) {
+            alert('Erro no acesso a API');
+        }
+
+    }
+
+    const addDefaultImg = () => {
+        setFoto(notFound);
+    };
+
+    return (
+        <>
+            <ContainerTop>
+                <ContainerImg source={foto} onError={addDefaultImg}></ContainerImg>
+                <ContainerInf>
+                    <ContainerName>
+                        <Input placeholder="Nome" value={produto?.nome}
+                            onChangeText={text => setProduto({ ...produto, nome: text })} />
+                    </ContainerName>
+                    <ContainerPrice>
+                        <Input placeholder="Valor" defaultValue={produto?.valor.toString()}
+                            keyboardType='numeric'
+                            maxLength={10}
+                            onChangeText={text => setProduto({ ...produto, valor: parseFloat(text) })} />
+                    </ContainerPrice>
+                    <ContainerDesc>
+                        <Input placeholder="Descrição" value={produto?.descricao}
+                            onChangeText={text => setProduto({ ...produto, descricao: text })} />
+                    </ContainerDesc>
+                </ContainerInf>
+            </ContainerTop>
+            <ContainerBot>
+                <ContainerStock>
+                    <Input placeholder="Estoque" defaultValue={produto?.qtdEstoque.toString()}
+                        keyboardType='numeric'
+                        onChangeText={text => setProduto({ ...produto, qtdEstoque: parseInt(text) })} />
+                </ContainerStock>
+                <ContainerCategory>
+                    <Input placeholder="Categoria" />
+                </ContainerCategory>
+            </ContainerBot>
+            <TouchableOpacity onPress={handleUpdateProduct} >
+                <SubmitButton />
+            </TouchableOpacity>
+        </>
+    )
+
+}
 
 export default Update;

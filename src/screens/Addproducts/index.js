@@ -1,69 +1,77 @@
-import React, { useState, useEffect } from "react";
-import { Text } from "react-native";
+import React, { useState, useEffect, createContext } from 'react';
+import { Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import ProdContext from '../../context'
 
-import AddProductCard from "../../components/addProductCard";
-import SubmitButton from "../../components/submitButton";
+import AddProductCard from '../../components/addProductCard'
+import SubmitButton from '../../components/submitButton'
+
+import notFound from "../../../assets/images/image-not-found.jpg";
 
 import api from "../../services/api";
 
 const AddProducts = () => {
-  const [categorias, setCategorias] = useState([]);
 
-  const [produto, setProduto] = useState({
-    dataFabricacao: "2019-10-01T00:00:00Z",
-    descricao: "",
-    fotoLink: null,
-    id: 0,
-    idCategoria: 0,
-    idFuncionario: 1,
-    nome: "",
-    nomeCategoria: "",
-    nomeFuncionario: null,
-    qtdEstoque: null,
-    valor: null,
-  });
+    const [categorias, setCategorias] = useState([]);
+    const [foto, setFoto] = useState();
 
-  useEffect(() => {
-    const handleListCategorias = async () => {
-      try {
-        const response = await api.get("/categoria");
-        const list = response.data;
-        const namesList = [];
-        list.forEach((item) => {
-          namesList.push(item);
-        });
-        setCategorias(namesList);
-      } catch (error) {
-        alert("Erro no acesso a API");
-      }
-    };
-    handleListCategorias();
-  }, []);
+    const [produto, setProduto] = useState({
+        dataFabricacao: '2019-10-01T00:00:00Z',
+        descricao: '',
+        fotoLink: notFound,
+        id: 0,
+        idCategoria: 0,
+        idFuncionario: 1,
+        nome: 'abc',
+        nomeCategoria: '',
+        nomeFuncionario: null,
+        qtdEstoque: 0,
+        valor: 0
+    });
 
-  const handleAddProduct = async () => {
-    try {
-      await api.post("/produto", produto);
-    } catch (error) {
-      alert("Erro no acesso a API");
+    useEffect(() => {
+        const handleListCategorias = async () => {
+
+
+            try {
+                const response = await api.get('/categoria');
+                const list = response.data;
+                const namesList = [];
+                list.forEach(item => {
+                    namesList.push(item)
+                });
+                setCategorias(namesList);
+
+            } catch (error) {
+                alert('Erro no acesso a API');
+            }
+        };
+        handleListCategorias();
+
+    }, []);
+
+    const handleAddProduct = async () => {
+
+        try {
+            await api.post('/produto', produto);
+
+        } catch (error) {
+            alert('Erro no acesso a API');
+        }
+
     }
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleAddProduct();
-  };
-
-  const findCategoria = (id) => {
-    const result = categorias.find((cat) => cat.id === parseInt(id));
-    return result.nome;
-  };
-
-  return (
-    <>
-      <AddProductCard />
-      <SubmitButton />
-    </>
-  );
-};
+    return (
+        <>
+            <Text>Adicionar Produtos</Text>
+            <ProdContext.Provider value={{produto,setProduto,categorias}}>
+                <AddProductCard />
+            </ProdContext.Provider>
+            <TouchableOpacity onPress={handleAddProduct} >
+                <SubmitButton />
+            </TouchableOpacity>
+        </>
+    );
+}
 
 export default AddProducts;
