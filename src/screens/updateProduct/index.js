@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../services/api'
 
 import notFound from "../../../assets/images/image-not-found.jpg";
+import SubmitButton from "../../components/submitButton";
 
 import {
     ContainerTop,
@@ -92,6 +93,7 @@ const Update = ({ route }) => {
                     <Input placeholder="Categoria" />
                 </ContainerCategory>
             </ContainerBot>
+            <SubmitButton />
         </>
     )
 
