@@ -1,14 +1,26 @@
 
 import React from 'react';
-import {Text} from 'react-native'
-import{NavigationContainer} from '@react-navigation/native';
+import SubmitButton from '../../components/submitButton'
 
-
+import {
+  Container,
+  ContainerLog,
+  TextHeader,
+  TextLog,
+} from './style'
 
 const Login= () => {
   return (
     <>
-      <Text></Text>
+      <Container>
+        <ContainerLog>
+          <TextHeader>Usuario:</TextHeader>
+          <TextLog></TextLog>
+          <TextHeader>Senha:</TextHeader>
+          <TextLog></TextLog>
+          <SubmitButton />
+        </ContainerLog>
+      </Container>
     </>
   );
 };
