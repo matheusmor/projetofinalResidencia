@@ -14,6 +14,8 @@ import {
   ContainerDesc,
   ContainerCategory,
   Input,
+  InputCat,
+  InputDesc,
 } from "./style";
 
 const UpdateProductCard = (produto) => {
@@ -41,7 +43,7 @@ const UpdateProductCard = (produto) => {
             <Input placeholder="Price" />
           </ContainerPrice>
           <ContainerDesc>
-            <Input placeholder="Description" />
+            <InputDesc placeholder="Description" />
           </ContainerDesc>
         </ContainerInf>
       </ContainerTop>
@@ -50,7 +52,7 @@ const UpdateProductCard = (produto) => {
           <Input placeholder="Stock" />
         </ContainerStock>
         <ContainerCategory>
-          <Input placeholder="Category" />
+          <InputCat placeholder="Category" />
         </ContainerCategory>
       </ContainerBot>
     </>

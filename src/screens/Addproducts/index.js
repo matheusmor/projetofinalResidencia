@@ -8,7 +8,7 @@ import SubmitButton from '../../components/submitButton'
 
 import notFound from "../../../assets/images/image-not-found.jpg";
 
-import api from '../../services/api'
+import api from "../../services/api";
 
 const AddProducts = () => {
 

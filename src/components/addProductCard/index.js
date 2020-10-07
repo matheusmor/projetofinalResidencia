@@ -15,6 +15,8 @@ import {
   ContainerDesc,
   ContainerCategory,
   Input,
+  InputDesc,
+  InputCat,
 } from "./style";
 import { PickerItem } from "react-native/Libraries/Components/Picker/Picker";
 

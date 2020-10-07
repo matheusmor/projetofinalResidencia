@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import api from '../../services/api'
+import api from "../../services/api";
 
 import notFound from "../../../assets/images/image-not-found.jpg";
-import SubmitButton from '../../components/submitButton'
+import SubmitButton from "../../components/submitButton";
 
 import {
-    ContainerTop,
-    ContainerBot,
-    ContainerImg,
-    ContainerStock,
-    ContainerInf,
-    ContainerName,
-    ContainerPrice,
-    ContainerDesc,
-    ContainerCategory,
-    Input,
+  ContainerTop,
+  ContainerBot,
+  ContainerImg,
+  ContainerStock,
+  ContainerInf,
+  ContainerName,
+  ContainerPrice,
+  ContainerDesc,
+  ContainerCategory,
+  Input,
+  InputDesc,
+  InputCat,
 } from "./style";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 

@@ -51,3 +51,15 @@ export const Input = styled.TextInput`
   font-size: 20px;
   padding-left: 10px;
 `;
+
+export const InputDesc = styled.TextInput`
+  flex: 1;
+  font-size: 14px;
+  padding-left: 5px;
+`;
+
+export const InputCat = styled.Picker`
+  flex: 1;
+  font-size: 14px;
+  padding-left: 5px;
+`;
