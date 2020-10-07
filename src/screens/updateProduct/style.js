@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 export const ContainerTop = styled.View`
   display: flex;
   flex-direction: row;
-  margin: 2px 20px 0px 20px;
+  margin: 20px 20px 0px 20px;
 `;
 export const ContainerImg = styled.Image`
   margin: 0px 20px 0px 0px;
