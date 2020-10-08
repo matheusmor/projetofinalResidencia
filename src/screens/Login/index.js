@@ -9,6 +9,7 @@ import {
   TextLog,
 } from './style'
 
+import {criaTabela, funcao} from '../../services/database'
 const Login= () => {
   
   criaTabela();
