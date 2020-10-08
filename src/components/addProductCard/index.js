@@ -20,7 +20,20 @@ import {
 
 const AddProductCard = () => {
 
-  const { produto, setProduto,categorias } = useContext(prodContext);
+  const { produto, setProduto, categorias } = useContext(prodContext);
+
+  const safeParseInt = (string) => {
+
+    const value = parseInt(string);
+    return isNaN(value) ? 0 : value
+  }
+
+  const safeParseFloat = (string) => {
+
+    const value = parseFloat(string);
+    return isNaN(value) ? 0 : value
+  }
+
   return (
     <>
       <ContainerTop>
@@ -34,7 +47,7 @@ const AddProductCard = () => {
             <Input placeholder="Valor" defaultValue={produto?.valor.toString()}
               keyboardType='numeric'
               maxLength={10}
-              onChangeText={text => setProduto({ ...produto, valor: parseFloat(text) })} />
+              onChangeText={text => setProduto({ ...produto, valor: safeParseFloat(text) })} />
           </ContainerPrice>
           <ContainerDesc>
             <InputDesc placeholder="Descrição" value={produto?.descricao}
@@ -46,13 +59,14 @@ const AddProductCard = () => {
         <ContainerStock>
           <Input placeholder="Estoque" defaultValue={produto?.qtdEstoque.toString()}
             keyboardType='numeric'
-            onChangeText={text => setProduto({ ...produto, qtdEstoque: parseInt(text) })} />
+            onChangeText={text => setProduto({ ...produto, qtdEstoque: safeParseInt(text) })} />
         </ContainerStock>
         <ContainerCategory>
-          <Picker selectedValue={produto.idCategoria} 
-            onValueChange={itemValue => setProduto({...produto, idCategoria: itemValue})} >
+          <Picker selectedValue={produto.idCategoria}
+            onValueChange={itemValue => setProduto({ ...produto, idCategoria: itemValue })} >
+             <Picker.Item label="Selecione uma categoria" value={null} disabled />
             {categorias.map(cat => {
-              return <Picker.Item key={cat.id} label={cat.nome} value={cat.id}/>
+              return <Picker.Item key={cat.id} label={cat.nome} value={cat.id} />
             })}
           </Picker>
         </ContainerCategory>
