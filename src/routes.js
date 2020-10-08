@@ -3,13 +3,13 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 
 import Home from "./screens/home";
 import Update from "./screens/updateProduct";
 import AddProducts from "./screens/Addproducts";
-import Login from "./screens/Login"
-import Welcome from './screens/Welcome/Welcome'
+import Login from "./screens/Login";
+import Welcome from "./screens/Welcome/Welcome";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -17,7 +17,11 @@ const Tab = createBottomTabNavigator();
 const StackNav = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Update" component={Update} />
     </Stack.Navigator>
   );
@@ -45,11 +49,11 @@ const Navigation = () => {
       }}
     >
       <Tab.Screen
-        name="Login"
+        name="Logout"
         component={Login}
         options={{
           tabBarIcon: ({ color }) => {
-            return <AntDesign name="user" size={28} color={color} />;
+            return <SimpleLineIcons name="logout" size={22} color={color} />;
           },
         }}
       />
