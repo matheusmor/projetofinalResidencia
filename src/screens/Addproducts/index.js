@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
-import { Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import ProdContext from "../../context";
 
 import AddProductCard from "../../components/addProductCard";
@@ -55,12 +55,15 @@ const AddProducts = () => {
 
   return (
     <>
-      <ProdContext.Provider value={{ produto, setProduto, categorias }}>
-        <AddProductCard />
-      </ProdContext.Provider>
-      <TouchableOpacity onPress={handleAddProduct}>
-        <SubmitButton />
-      </TouchableOpacity>
+      <ScrollView>
+        <ProdContext.Provider value={{ produto, setProduto, categorias }}>
+          <AddProductCard />
+        </ProdContext.Provider>
+        <TouchableOpacity onPress={handleAddProduct}>
+          <SubmitButton />
+        </TouchableOpacity>
+        <View style={{ height: 20 }} />
+      </ScrollView>
     </>
   );
 };

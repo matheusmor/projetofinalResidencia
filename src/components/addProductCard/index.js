@@ -16,7 +16,6 @@ import {
   ContainerCategory,
   Input,
   InputDesc,
-  InputCat,
 } from "./style";
 import { PickerItem } from "react-native/Libraries/Components/Picker/Picker";
 
@@ -24,7 +23,6 @@ const AddProductCard = () => {
 
   const { produto, setProduto,categorias } = useContext(prodContext);
   return (
-
     <>
       <ContainerTop>
         <ContainerImg source={notFound}></ContainerImg>
@@ -40,7 +38,7 @@ const AddProductCard = () => {
               onChangeText={text => setProduto({ ...produto, valor: parseFloat(text) })} />
           </ContainerPrice>
           <ContainerDesc>
-            <Input placeholder="Descrição" value={produto?.descricao}
+            <InputDesc placeholder="Descrição" value={produto?.descricao}
               onChangeText={text => setProduto({ ...produto, descricao: text })} />
           </ContainerDesc>
         </ContainerInf>
@@ -61,7 +59,6 @@ const AddProductCard = () => {
         </ContainerCategory>
       </ContainerBot>
     </>
-
   );
 };
 

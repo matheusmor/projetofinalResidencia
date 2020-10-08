@@ -49,7 +49,7 @@ const Navigation = () => {
         component={Login}
         options={{
           tabBarIcon: ({ color }) => {
-            return <AntDesign name="user" size={40} color={color} />;
+            return <AntDesign name="user" size={28} color={color} />;
           },
         }}
       />
@@ -58,7 +58,7 @@ const Navigation = () => {
         component={StackNav}
         options={{
           tabBarIcon: ({ color }) => {
-            return <AntDesign name="home" size={40} color={color} />;
+            return <AntDesign name="home" size={28} color={color} />;
           },
         }}
       />
@@ -68,7 +68,7 @@ const Navigation = () => {
         options={{
           tabBarIcon: ({ color }) => {
             return (
-              <Ionicons name="ios-add-circle-outline" size={40} color={color} />
+              <Ionicons name="ios-add-circle-outline" size={28} color={color} />
             );
           },
         }}

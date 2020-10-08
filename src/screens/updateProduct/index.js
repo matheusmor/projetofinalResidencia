@@ -4,6 +4,7 @@ import api from "../../services/api";
 
 import notFound from "../../../assets/images/image-not-found.jpg";
 import SubmitButton from "../../components/submitButton";
+import DeleteButton from "../../components/deleteButton";
 
 import {
   ContainerTop,
@@ -19,7 +20,8 @@ import {
   InputDesc,
   InputCat,
 } from "./style";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { View } from "react-native";
 
 const Update = ({ route }) => {
   const [produto, setProduto] = useState();
@@ -56,56 +58,72 @@ const Update = ({ route }) => {
 
   return (
     <>
-      <ContainerTop>
-        <ContainerImg source={foto} onError={addDefaultImg}></ContainerImg>
-        <ContainerInf>
-          <ContainerName>
+      <ScrollView>
+        <ContainerTop>
+          <ContainerImg source={foto} onError={addDefaultImg}></ContainerImg>
+          <ContainerInf>
+            <ContainerName>
+              <Input
+                placeholder="Nome"
+                value={produto?.nome}
+                onChangeText={(text) => setProduto({ ...produto, nome: text })}
+              />
+            </ContainerName>
+            <ContainerPrice>
+              <Input
+                placeholder="Valor"
+                defaultValue={produto?.valor.toString()}
+                keyboardType="numeric"
+                maxLength={10}
+                onChangeText={(text) =>
+                  setProduto({ ...produto, valor: parseFloat(text) })
+                }
+              />
+            </ContainerPrice>
+            <ContainerDesc>
+              <InputDesc
+                placeholder="Descrição"
+                value={produto?.descricao}
+                onChangeText={(text) =>
+                  setProduto({ ...produto, descricao: text })
+                }
+              />
+            </ContainerDesc>
+          </ContainerInf>
+        </ContainerTop>
+        <ContainerBot>
+          <ContainerStock>
             <Input
-              placeholder="Nome"
-              value={produto?.nome}
-              onChangeText={(text) => setProduto({ ...produto, nome: text })}
-            />
-          </ContainerName>
-          <ContainerPrice>
-            <Input
-              placeholder="Valor"
-              defaultValue={produto?.valor.toString()}
+              placeholder="Estoque"
+              defaultValue={produto?.qtdEstoque.toString()}
               keyboardType="numeric"
-              maxLength={10}
               onChangeText={(text) =>
-                setProduto({ ...produto, valor: parseFloat(text) })
+                setProduto({ ...produto, qtdEstoque: parseInt(text) })
               }
             />
-          </ContainerPrice>
-          <ContainerDesc>
-            <InputDesc
-              placeholder="Descrição"
-              value={produto?.descricao}
-              onChangeText={(text) =>
-                setProduto({ ...produto, descricao: text })
-              }
-            />
-          </ContainerDesc>
-        </ContainerInf>
-      </ContainerTop>
-      <ContainerBot>
-        <ContainerStock>
-          <Input
-            placeholder="Estoque"
-            defaultValue={produto?.qtdEstoque.toString()}
-            keyboardType="numeric"
-            onChangeText={(text) =>
-              setProduto({ ...produto, qtdEstoque: parseInt(text) })
-            }
-          />
-        </ContainerStock>
-        <ContainerCategory>
-          <InputCat placeholder="Categoria" />
-        </ContainerCategory>
-      </ContainerBot>
-      <TouchableOpacity onPress={handleUpdateProduct}>
-        <SubmitButton />
-      </TouchableOpacity>
+          </ContainerStock>
+          <ContainerCategory>
+            <InputCat placeholder="Categoria" />
+          </ContainerCategory>
+        </ContainerBot>
+        <View
+          style={{
+            flexDirection: "row",
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 20,
+            justifyContent: "center",
+          }}
+        >
+          <TouchableOpacity onPress={handleUpdateProduct}>
+            <SubmitButton />
+          </TouchableOpacity>
+          <View style={{ width: 20 }} />
+          <TouchableOpacity onPress={null}>
+            <DeleteButton />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </>
   );
 };
