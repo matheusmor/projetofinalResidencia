@@ -17,7 +17,6 @@ import {
   Input,
   InputDesc,
 } from "./style";
-import { PickerItem } from "react-native/Libraries/Components/Picker/Picker";
 
 const AddProductCard = () => {
 
