@@ -14,7 +14,7 @@ const AddProducts = (navigation) => {
   const [categorias, setCategorias] = useState([]);
   const [refresh, setRefresh] = useState(true);
 
-  const [produto, setProduto] = useState({
+  const initialState = {
     dataFabricacao: "2019-10-01T00:00:00Z",
     descricao: "",
     fotoLink: notFound,
@@ -26,7 +26,21 @@ const AddProducts = (navigation) => {
     nomeFuncionario: null,
     qtdEstoque: 0,
     valor: 0,
-  });
+  }
+  const [produto, setProduto] = useState(initialState)
+  /*const [produto, setProduto] = useState({
+    dataFabricacao: "2019-10-01T00:00:00Z",
+    descricao: "",
+    fotoLink: notFound,
+    id: 0,
+    idCategoria: 0,
+    idFuncionario: 1,
+    nome: "",
+    nomeCategoria: "",
+    nomeFuncionario: null,
+    qtdEstoque: 0,
+    valor: 0,
+  });*/
 
   useEffect(() => {
     const handleListCategorias = async () => {
@@ -49,7 +63,7 @@ const AddProducts = (navigation) => {
     try {
       await api.post("/produto", produto);
       alert("Produto Adicionado com Sucesso");
-      setRefresh(false)
+      setProduto(initialState);
     } catch (error) {
       alert("Erro no acesso a API");
     }
