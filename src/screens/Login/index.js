@@ -1,9 +1,13 @@
 
 import React from 'react';
-import {Text} from 'react-native'
-import{NavigationContainer} from '@react-navigation/native';
+import SubmitButton from '../../components/submitButton'
 
-
+import {
+  Container,
+  ContainerLog,
+  TextHeader,
+  TextLog,
+} from './style'
 
 const Login= () => {
   
@@ -22,7 +26,15 @@ console.log({usuario}, "usuario aqui")
 
   return (
     <>
-      <Button title='botao'onPress={validacao} ></Button>
+      <Container>
+        <ContainerLog>
+          <TextHeader>Usuario:</TextHeader>
+          <TextLog></TextLog>
+          <TextHeader>Senha:</TextHeader>
+          <TextLog></TextLog>
+          <SubmitButton />
+        </ContainerLog>
+      </Container>
     </>
   );
 };

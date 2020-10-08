@@ -1,121 +1,142 @@
-import React, { useState, useEffect } from 'react';
-import { Text } from 'react-native';
+import React, { useState, useEffect } from "react";
 
-import api from '../../services/api'
-import UpdateProductCard from '../../components/updateProductCard'
+import api from "../../services/api";
+
 import notFound from "../../../assets/images/image-not-found.jpg";
+import SubmitButton from "../../components/submitButton";
+import DeleteButton from "../../components/deleteButton";
 
 import {
-    ContainerTop,
-    ContainerBot,
-    ContainerImg,
-    ContainerStock,
-    ContainerInf,
-    ContainerName,
-    ContainerPrice,
-    ContainerDesc,
-    ContainerCategory,
-    Input,
+  ContainerTop,
+  ContainerBot,
+  ContainerImg,
+  ContainerStock,
+  ContainerInf,
+  ContainerName,
+  ContainerPrice,
+  ContainerDesc,
+  ContainerCategory,
+  Input,
+  InputDesc,
+  InputCat,
 } from "./style";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { View } from "react-native";
 
-const Update = ({ route }) => {
+const Update = ({ route,navigation }) => {
+  const [produto, setProduto] = useState();
+  const [foto, setFoto] = useState();
 
-    const [produto, setProduto] = useState();
-    const [categorias, setCategorias] = useState([]);
+  const id = route.params?.id ?? 1;
 
-    const id = route.params?.id ?? 1;
+  useEffect(() => {
+    const handleProduct = async () => {
+      try {
+        const response = await api.get(`/produto/${id}`);
+        const prod = response.data;
 
-    useEffect(() => {
-        const handleProduct = async () => {
-
-
-            try {
-                const response = await api.get(`/produto/${id}`);
-                const prod = response.data;
-
-                setProduto(prod);
-
-            } catch (error) {
-                alert('Erro no acesso a API');
-            }
-        };
-        handleProduct();
-        console.log(produto)
-    }, []);
-
-    useEffect(() => {
-        const handleListCategorias = async () => {
-
-
-            try {
-                const response = await api.get('/categoria');
-                const list = response.data;
-                const namesList = [];
-                list.forEach(item => {
-                    namesList.push(item)
-                });
-                setCategorias(namesList);
-
-            } catch (error) {
-                alert('Erro no acesso a API');
-            }
-        };
-        handleListCategorias();
-
-    }, []);
-
-    const handleUpdateProduct = async (id) => {
-
-        try {
-            await api.put(`/produto/${id}`, produto);
-
-        } catch (error) {
-            alert('Erro no acesso a API');
-        }
-
-    }
-
-    const addDefaultImg = () => {
-        setProduto({ ...produto, fotoLink: { uri: notFound } });
+        setProduto(prod);
+        setFoto({ uri: prod.fotoLink });
+      } catch (error) {
+        alert("Erro no acesso a API");
+      }
     };
+    handleProduct();
+  }, []);
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        handleUpdateProduct();
+  const handleUpdateProduct = async () => {
+    try {
+      await api.put(`/produto/${id}`, produto);
+      navigation.replace('Home');
+    } catch (error) {
+      alert("Erro no acesso a API");
     }
+  };
 
-    const findCategoria = (id) => {
-        const result = categorias.find(cat => cat.id === parseInt(id));
-        return result.nome;
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/produto/${id}`);
+      navigation.replace('Home');
+
+    } catch (error) {
+      alert('Erro no acesso a API');
     }
+  }
 
-    return (
-        <>
-            <ContainerTop>
-                <ContainerImg source={{ uri: produto?.fotoLink }} onError={addDefaultImg}></ContainerImg>
-                <ContainerInf>
-                    <ContainerName>
-                        <Input placeholder={produto?.nome} value={produto?.nome} onChange={e => setProduto({ ...produto, nome: e.target.value })} />
-                    </ContainerName>
-                    <ContainerPrice>
-                        <Input placeholder={produto?.valor.toString()} />
-                    </ContainerPrice>
-                    <ContainerDesc>
-                        <Input placeholder="Description" />
-                    </ContainerDesc>
-                </ContainerInf>
-            </ContainerTop>
-            <ContainerBot>
-                <ContainerStock>
-                    <Input placeholder="Stock" />
-                </ContainerStock>
-                <ContainerCategory>
-                    <Input placeholder="Category" />
-                </ContainerCategory>
-            </ContainerBot>
-        </>
-    )
+  const addDefaultImg = () => {
+    setFoto(notFound);
+  };
 
-}
+  return (
+    <>
+      <ScrollView>
+        <ContainerTop>
+          <ContainerImg source={foto} onError={addDefaultImg}></ContainerImg>
+          <ContainerInf>
+            <ContainerName>
+              <Input
+                placeholder="Nome"
+                value={produto?.nome}
+                onChangeText={(text) => setProduto({ ...produto, nome: text })}
+              />
+            </ContainerName>
+            <ContainerPrice>
+              <Input
+                placeholder="Valor"
+                defaultValue={produto?.valor.toString()}
+                keyboardType="numeric"
+                maxLength={10}
+                onChangeText={(text) =>
+                  setProduto({ ...produto, valor: parseFloat(text) })
+                }
+              />
+            </ContainerPrice>
+            <ContainerDesc>
+              <InputDesc
+                placeholder="Descrição"
+                value={produto?.descricao}
+                onChangeText={(text) =>
+                  setProduto({ ...produto, descricao: text })
+                }
+              />
+            </ContainerDesc>
+          </ContainerInf>
+        </ContainerTop>
+        <ContainerBot>
+          <ContainerStock>
+            <Input
+              placeholder="Estoque"
+              defaultValue={produto?.qtdEstoque.toString()}
+              keyboardType="numeric"
+              onChangeText={(text) =>
+                setProduto({ ...produto, qtdEstoque: parseInt(text) })
+              }
+            />
+          </ContainerStock>
+          <ContainerCategory>
+            <InputCat placeholder="Categoria" />
+          </ContainerCategory>
+        </ContainerBot>
+        <View
+          style={{
+            flexDirection: "row",
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 20,
+            justifyContent: "center",
+          }}
+        >
+          <TouchableOpacity onPress={handleUpdateProduct}>
+            <SubmitButton />
+          </TouchableOpacity>
+          <View style={{ width: 20 }} />
+          <TouchableOpacity onPress={handleDelete}>
+            <DeleteButton />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </>
+  );
+};
 
 export default Update;

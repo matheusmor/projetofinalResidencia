@@ -8,7 +8,7 @@ export const Container = styled.View`
   padding: 5px;
   justify-content: center;
   align-self: center;
-  background-color: #3483FA;
+  background-color: #E04129;
 `;
 
 export const Button = styled.TouchableHighlight`

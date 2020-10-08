@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 export const ContainerTop = styled.View`
   display: flex;
   flex-direction: row;
-  margin: 2px 20px 0px 20px;
+  margin: 20px 20px 0px 20px;
 `;
 export const ContainerImg = styled.Image`
   margin: 0px 20px 0px 0px;
@@ -50,4 +50,16 @@ export const Input = styled.TextInput`
   flex: 1;
   font-size: 20px;
   padding-left: 10px;
+`;
+
+export const InputDesc = styled.TextInput`
+  flex: 1;
+  font-size: 14px;
+  padding-left: 5px;
+`;
+
+export const InputCat = styled.Picker`
+  flex: 1;
+  font-size: 14px;
+  padding-left: 5px;
 `;
