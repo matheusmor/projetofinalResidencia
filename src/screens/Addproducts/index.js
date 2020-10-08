@@ -10,9 +10,9 @@ import notFound from "../../../assets/images/image-not-found.jpg";
 
 import api from "../../services/api";
 
-const AddProducts = () => {
+const AddProducts = (navigation) => {
   const [categorias, setCategorias] = useState([]);
-  const [foto, setFoto] = useState();
+  const [refresh, setRefresh] = useState(true);
 
   const [produto, setProduto] = useState({
     dataFabricacao: "2019-10-01T00:00:00Z",
@@ -48,6 +48,8 @@ const AddProducts = () => {
   const handleAddProduct = async () => {
     try {
       await api.post("/produto", produto);
+      alert("Produto Adicionado com Sucesso");
+      setRefresh(false)
     } catch (error) {
       alert("Erro no acesso a API");
     }

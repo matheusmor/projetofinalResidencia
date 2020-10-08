@@ -23,7 +23,7 @@ import {
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native";
 
-const Update = ({ route }) => {
+const Update = ({ route,navigation }) => {
   const [produto, setProduto] = useState();
   const [foto, setFoto] = useState();
 
@@ -47,10 +47,21 @@ const Update = ({ route }) => {
   const handleUpdateProduct = async () => {
     try {
       await api.put(`/produto/${id}`, produto);
+      navigation.replace('Home');
     } catch (error) {
       alert("Erro no acesso a API");
     }
   };
+
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/produto/${id}`);
+      navigation.replace('Home');
+
+    } catch (error) {
+      alert('Erro no acesso a API');
+    }
+  }
 
   const addDefaultImg = () => {
     setFoto(notFound);
@@ -119,7 +130,7 @@ const Update = ({ route }) => {
             <SubmitButton />
           </TouchableOpacity>
           <View style={{ width: 20 }} />
-          <TouchableOpacity onPress={null}>
+          <TouchableOpacity onPress={handleDelete}>
             <DeleteButton />
           </TouchableOpacity>
         </View>
