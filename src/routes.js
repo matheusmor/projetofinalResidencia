@@ -52,6 +52,7 @@ const Navigation = () => {
             return <AntDesign name="user" size={28} color={color} />;
           },
         }}
+        
       />
       <Tab.Screen
         name="Home"
