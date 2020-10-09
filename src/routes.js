@@ -44,14 +44,16 @@ const Navigation = () => {
         inactiveTintColor: "#555",
       }}
     >
+      
       <Tab.Screen
         name="Login"
         component={Login}
         options={{
           tabBarIcon: ({ color }) => {
             return <AntDesign name="user" size={28} color={color} />;
-          },
+          },tabBarVisible:false
         }}
+        
       />
       <Tab.Screen
         name="Home"
