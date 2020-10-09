@@ -9,7 +9,6 @@ import Home from "./screens/home";
 import Update from "./screens/updateProduct";
 import AddProducts from "./screens/Addproducts";
 import Login from "./screens/Login"
-import Welcome from './screens/Welcome/Welcome'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
