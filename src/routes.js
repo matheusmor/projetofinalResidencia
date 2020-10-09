@@ -43,14 +43,18 @@ const Navigation = () => {
         inactiveTintColor: "#555",
       }}
     >
+      
       <Tab.Screen
         name="Logout"
         component={Login}
         options={{
           tabBarIcon: ({ color }) => {
+
             return <MaterialCommunityIcons name="exit-run" size={24} color={color} />
-          },
+          },tabBarVisible:false
+
         }}
+        
       />
       <Tab.Screen
         name="Home"

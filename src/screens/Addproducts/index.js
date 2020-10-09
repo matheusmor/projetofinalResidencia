@@ -12,7 +12,7 @@ import api from "../../services/api";
 
 const AddProducts = (navigation) => {
   const [categorias, setCategorias] = useState([]);
- 
+
   const initialState = {
     dataFabricacao: "2019-10-01T00:00:00Z",
     descricao: "",
@@ -46,12 +46,17 @@ const AddProducts = (navigation) => {
   }, []);
 
   const handleAddProduct = async () => {
-    try {
-      await api.post("/produto", produto);
-      alert("Produto Adicionado com Sucesso");
-      setProduto(initialState);
-    } catch (error) {
-      alert("Erro no acesso a API");
+    if (produto.valor < 0 || produto.qtdEstoque < 0) {
+      alert('Valor e Estoque não podem ser negativos')
+    }
+    else {
+      try {
+        await api.post("/produto", produto);
+        alert("Produto Adicionado com Sucesso");
+        setProduto(initialState);
+      } catch (error) {
+        alert("Erro no acesso a API");
+      }
     }
   };
 
