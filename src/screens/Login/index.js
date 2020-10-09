@@ -26,6 +26,8 @@ const usuario = await Usuario.find(id)
 if(login==usuario.login && password==usuario.password){
   alert("logado")
  navigation.navigate('Home')
+ setLogin('');
+ setPassword('')
 
 }else{
   alert("nao logado")
@@ -44,7 +46,7 @@ console.log({usuario}, "usuario aqui")
           <TextHeader>Usuario:</TextHeader>
           <TextLog value={login} onChangeText={text=>setLogin(text)}  ></TextLog>
           <TextHeader>Senha:</TextHeader>
-          <TextLog value={password} onChangeText={text=>setPassword(text)}  ></TextLog>
+          <TextLog value={password} onChangeText={text=>setPassword(text)} secureTextEntry={true}  ></TextLog>
           <TouchableOpacity onPress={validacao}>
           <SubmitButton />
           </TouchableOpacity>

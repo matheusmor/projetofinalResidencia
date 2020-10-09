@@ -9,7 +9,7 @@ export const funcao=()=>{
    
 
 const databaseLayer = new DatabaseLayer(async () => SQLite.openDatabase('database.db'), 'usuarios')
-const itens = [{id:0, login:'admin', password:'admin'}]
+const itens = [{id:0, login:'luigi', password:'admin'}]
 databaseLayer.bulkInsertOrReplace(itens).then(response => {
   console.log(response)
   
