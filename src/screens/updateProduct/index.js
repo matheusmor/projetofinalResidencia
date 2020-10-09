@@ -62,17 +62,23 @@ const Update = ({ route, navigation }) => {
   }, []);
 
   const handleUpdateProduct = async () => {
-    try {
-      await api.put(`/produto/${id}`, produto);
-      navigation.replace('Home');
-    } catch (error) {
-      alert("Erro no acesso a API");
+    if (produto.valor < 0 || produto.qtdEstoque < 0) {
+      alert('Valor e Estoque não podem ser negativos')
+    }
+    else{
+      try {
+        await api.put(`/produto/${id}`, produto);
+        navigation.replace('Home');
+      } catch (error) {
+        alert("Erro no acesso a API");
+      }
     }
   };
 
   const safeParseInt = (string) => {
 
     const value = parseInt(string);
+    Math.abs(value)
     return isNaN(value) ? 0 : value
   }
 
@@ -143,13 +149,13 @@ const Update = ({ route, navigation }) => {
             />
           </ContainerStock>
           <ContainerCategory>
-          <Picker selectedValue={produto?.idCategoria}
-            onValueChange={itemValue => setProduto({ ...produto, idCategoria: itemValue })} >
-             <Picker.Item label="Selecione uma categoria" value={null} disabled />
-            {categorias.map(cat => {
-              return <Picker.Item key={cat.id} label={cat.nome} value={cat.id} />
-            })}
-          </Picker>
+            <Picker selectedValue={produto?.idCategoria}
+              onValueChange={itemValue => setProduto({ ...produto, idCategoria: itemValue })} >
+              <Picker.Item label="Selecione uma categoria" value={null} disabled />
+              {categorias.map(cat => {
+                return <Picker.Item key={cat.id} label={cat.nome} value={cat.id} />
+              })}
+            </Picker>
           </ContainerCategory>
         </ContainerBot>
         <View
