@@ -3,13 +3,12 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Home from "./screens/home";
 import Update from "./screens/updateProduct";
 import AddProducts from "./screens/Addproducts";
 import Login from "./screens/Login"
-import Welcome from './screens/Welcome/Welcome'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,12 +45,14 @@ const Navigation = () => {
     >
       
       <Tab.Screen
-        name="Login"
+        name="Logout"
         component={Login}
         options={{
           tabBarIcon: ({ color }) => {
-            return <AntDesign name="user" size={28} color={color} />;
+
+            return <MaterialCommunityIcons name="exit-run" size={24} color={color} />
           },tabBarVisible:false
+
         }}
         
       />

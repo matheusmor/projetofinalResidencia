@@ -1,22 +1,26 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
+  padding: 20px;
+  display: flex;
+  align-items: center;
   background-color: #fff159;
   flex-direction: row;
-  padding: 15px 15px 15px 15px;
   height: 80px;
 `;
 
-export const SearchBar = styled.TextInput`
-  border-radius: 25px;
-  flex: 10;
-  background-color: #fff;
-  padding-left: 10px;
-  font-size: 25px;
+export const Logo = styled.View`
+  margin-right: 40px;
 `;
 
-export const SearchButton = styled.TouchableOpacity`
+export const ImageLogo = styled.Image`
+  height: 50px;
+  width: 50px;
+`;
+
+export const HeaderText = styled.Text`
+  font-weight: bold;
+  font-size: 36px;
   flex: 1;
   justify-content: center;
-  align-items: center;
 `;
