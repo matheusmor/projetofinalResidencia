@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Picker } from '@react-native-community/picker';
 import api from "../../services/api";
 
 import notFound from "../../../assets/images/image-not-found.jpg";
@@ -23,10 +23,10 @@ import {
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native";
 
-const Update = ({ route,navigation }) => {
+const Update = ({ route, navigation }) => {
   const [produto, setProduto] = useState();
   const [foto, setFoto] = useState();
-
+  const [categorias, setCategorias] = useState([]);
   const id = route.params?.id ?? 1;
 
   useEffect(() => {
@@ -44,6 +44,23 @@ const Update = ({ route,navigation }) => {
     handleProduct();
   }, []);
 
+  useEffect(() => {
+    const handleListCategorias = async () => {
+      try {
+        const response = await api.get("/categoria");
+        const list = response.data;
+        const namesList = [];
+        list.forEach((item) => {
+          namesList.push(item);
+        });
+        setCategorias(namesList);
+      } catch (error) {
+        alert("Erro no acesso a API");
+      }
+    };
+    handleListCategorias();
+  }, []);
+
   const handleUpdateProduct = async () => {
     try {
       await api.put(`/produto/${id}`, produto);
@@ -52,6 +69,18 @@ const Update = ({ route,navigation }) => {
       alert("Erro no acesso a API");
     }
   };
+
+  const safeParseInt = (string) => {
+
+    const value = parseInt(string);
+    return isNaN(value) ? 0 : value
+  }
+
+  const safeParseFloat = (string) => {
+
+    const value = parseFloat(string);
+    return isNaN(value) ? 0 : value
+  }
 
   const handleDelete = async () => {
     try {
@@ -87,7 +116,7 @@ const Update = ({ route,navigation }) => {
                 keyboardType="numeric"
                 maxLength={10}
                 onChangeText={(text) =>
-                  setProduto({ ...produto, valor: parseFloat(text) })
+                  setProduto({ ...produto, valor: safeParseFloat(text) })
                 }
               />
             </ContainerPrice>
@@ -109,12 +138,18 @@ const Update = ({ route,navigation }) => {
               defaultValue={produto?.qtdEstoque.toString()}
               keyboardType="numeric"
               onChangeText={(text) =>
-                setProduto({ ...produto, qtdEstoque: parseInt(text) })
+                setProduto({ ...produto, qtdEstoque: safeParseInt(text) })
               }
             />
           </ContainerStock>
           <ContainerCategory>
-            <InputCat placeholder="Categoria" />
+          <Picker selectedValue={produto?.idCategoria}
+            onValueChange={itemValue => setProduto({ ...produto, idCategoria: itemValue })} >
+             <Picker.Item label="Selecione uma categoria" value={null} disabled />
+            {categorias.map(cat => {
+              return <Picker.Item key={cat.id} label={cat.nome} value={cat.id} />
+            })}
+          </Picker>
           </ContainerCategory>
         </ContainerBot>
         <View
